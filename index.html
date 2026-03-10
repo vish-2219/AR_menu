@@ -9,11 +9,32 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 <style>
 
+.arbutton{
+position:absolute;
+bottom:110px;
+right:20px;
+background:black;
+color:white;
+padding:12px 18px;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+z-index:10;
+}
+
+model-viewer{
+width:100%;
+height:85vh;
+transition: transform 0.35s ease;
+}
 body{
 margin:0;
 font-family:Arial;
-background:white;
+background:#14213D;
 }
+<button class="arbutton" onclick="viewer.activateAR()">
+View in AR
+</button>
 
 .logo{
 position:absolute;
@@ -28,7 +49,8 @@ position:absolute;
 bottom:25px;
 left:50%;
 transform:translateX(-50%);
-background:rgba(0,0,0,0.6);
+background:rgba(255,255,255,0.15);
+backdrop-filter:blur(8px);
 color:white;
 padding:12px 20px;
 border-radius:10px;
@@ -97,6 +119,9 @@ Tap pastry name to see description
 
 let current=0
 
+let startX = 0
+let endX = 0
+
 const models=[
 "cheese6.glb",
 "chocom.glb",
@@ -123,8 +148,11 @@ const descriptions=[
 
 const viewer=document.getElementById("viewer")
 
-document.getElementById("next").onclick=()=>{
+function nextItem(){
 
+viewer.style.transform = "translateX(-60px)";
+
+setTimeout(()=>{
 current=(current+1)%models.length
 
 viewer.src=models[current]
@@ -133,10 +161,17 @@ document.getElementById("name").innerText=names[current]
 
 document.getElementById("desc").innerText=descriptions[current]
 
+viewer.style.transform="translateX(0)"
+
+},200)
+
 }
 
-document.getElementById("prev").onclick=()=>{
+function prevItem(){
 
+viewer.style.transform = "translateX(60px)";
+
+setTimeout(()=>{
 current=(current-1+models.length)%models.length
 
 viewer.src=models[current]
@@ -145,15 +180,39 @@ document.getElementById("name").innerText=names[current]
 
 document.getElementById("desc").innerText=descriptions[current]
 
+viewer.style.transform="translateX(0)"
+
+},200)
+
 }
 
-document.getElementById("name").onclick=()=>{
+document.getElementById("next").onclick=nextItem
+document.getElementById("prev").onclick=prevItem
 
 let d=document.getElementById("desc")
 
 d.style.display=d.style.display==="none"?"block":"none"
 
 }
+
+const viewer = document.getElementById("viewer")
+
+viewer.addEventListener("touchstart",(e)=>{
+startX = e.touches[0].clientX
+})
+
+viewer.addEventListener("touchend",(e)=>{
+endX = e.changedTouches[0].clientX
+
+if(startX - endX > 50){
+nextItem()
+}
+
+if(endX - startX > 50){
+prevItem()
+}
+
+})
 
 </script>
 
