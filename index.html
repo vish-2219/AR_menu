@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+font-family:Arial;
+}
+
+.logo{
+position:absolute;
+top:10px;
+right:10px;
+width:90px;
+z-index:10;
+}
+
+.menu{
+position:absolute;
+bottom:20px;
+left:20px;
+color:white;
+font-size:20px;
+z-index:10;
+}
+
+button{
+font-size:24px;
+background:black;
+color:white;
+border:none;
+padding:5px 10px;
+cursor:pointer;
+}
+
+#desc{
+display:none;
+background:white;
+color:black;
+padding:10px;
+margin-top:10px;
+width:200px;
+border-radius:6px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<img class="logo" src="white donut.png">
+
+<div class="menu">
+
+<button id="prev"><</button>
+
+<span id="name">Cheesecake</span>
+
+<button id="next">></button>
+
+<div id="desc">
+Creamy cheesecake pastry
+</div>
+
+</div>
+
+<a-scene embedded>
+
+<a-assets>
+
+<a-asset-item id="m1" src="cheese6.glb"></a-asset-item>
+<a-asset-item id="m2" src="chocom.glb"></a-asset-item>
+<a-asset-item id="m3" src="redvelvet2mb.glb"></a-asset-item>
+<a-asset-item id="m4" src="donut.glb"></a-asset-item>
+<a-asset-item id="m5" src="cdonut.glb"></a-asset-item>
+
+</a-assets>
+
+<a-entity light="type:ambient; intensity:1"></a-entity>
+<a-entity light="type:directional; intensity:1" position="1 1 1"></a-entity>
+
+<a-camera position="0 1.6 0"></a-camera>
+
+<a-gltf-model
+id="cake"
+src="#m1"
+position="0 1 -3"
+scale="0.6 0.6 0.6"
+rotation="0 45 0">
+</a-gltf-model>
+
+</a-scene>
+
+<script>
+
+let current=0
+
+const models=["#m1","#m2","#m3","#m4","#m5"]
+
+const names=[
+"Cheesecake",
+"Chocolate Pastry",
+"Red Velvet",
+"Donut",
+"Cream Donut"
+]
+
+const desc=[
+"Creamy cheesecake pastry",
+"Rich chocolate pastry",
+"Classic red velvet pastry",
+"Soft glazed donut",
+"Cream filled donut"
+]
+
+const cake=document.querySelector("#cake")
+
+document.getElementById("next").onclick=()=>{
+
+current=(current+1)%models.length
+
+cake.setAttribute("src",models[current])
+
+document.getElementById("name").innerText=names[current]
+
+document.getElementById("desc").innerText=desc[current]
+
+}
+
+document.getElementById("prev").onclick=()=>{
+
+current=(current-1+models.length)%models.length
+
+cake.setAttribute("src",models[current])
+
+document.getElementById("name").innerText=names[current]
+
+document.getElementById("desc").innerText=desc[current]
+
+}
+
+document.getElementById("name").onclick=()=>{
+
+let d=document.getElementById("desc")
+
+d.style.display=d.style.display==="none"?"block":"none"
+
+}
+
+</script>
+
+</body>
+</html>
