@@ -87,6 +87,21 @@ z-index:10;
 
 <img class="logo" src="Screenshot (345).png" alt="logo">
 
+<button id="startAR">Start AR Menu</button>
+#startAR{
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+padding:16px 28px;
+font-size:20px;
+background:#FCA311;
+border:none;
+border-radius:8px;
+cursor:pointer;
+z-index:20;
+}
+
 <model-viewer
 id="viewer"
 src="cheese6.glb"
@@ -150,6 +165,14 @@ const descriptions=[
 
 const viewer=document.getElementById("viewer")
 
+document.getElementById("startAR").onclick = () => {
+
+viewer.activateAR()
+
+document.getElementById("startAR").style.display="none"
+
+}
+  
 function nextItem(){
 
 viewer.style.transform="translateX(-60px)"
