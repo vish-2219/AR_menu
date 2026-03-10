@@ -9,17 +9,11 @@ src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 <style>
 
-.arbutton{
-position:absolute;
-bottom:110px;
-right:20px;
-background:black;
-color:white;
-padding:12px 18px;
-border-radius:30px;
-font-size:16px;
-cursor:pointer;
-z-index:10;
+body{
+margin:0;
+font-family:Arial;
+background:#14213D;
+overflow:hidden;
 }
 
 model-viewer{
@@ -28,21 +22,12 @@ height:100vh;
 background:#14213D;
 transition: transform 0.35s ease;
 }
-body{
-margin:0;
-font-family:Arial;
-background:#14213D;
-}
-<button class="arbutton" onclick="viewer.activateAR()">
-View in AR
-</button>
 
 .logo{
 position:absolute;
 top:15px;
 right:15px;
 width:70px;
-height:auto;
 z-index:10;
 }
 
@@ -79,9 +64,17 @@ margin-top:8px;
 border-radius:6px;
 }
 
-model-viewer{
-width:100%;
-height:85vh;
+.arbutton{
+position:absolute;
+bottom:110px;
+right:20px;
+background:#FCA311;
+color:black;
+padding:12px 18px;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+z-index:10;
 }
 
 </style>
@@ -100,8 +93,13 @@ ar-placement="floor"
 camera-controls
 shadow-intensity="1"
 exposure="1"
-scale="0.4 0.4 0.4">
+scale="0.4 0.4 0.4"
+environment-image="neutral">
 </model-viewer>
+
+<button class="arbutton" onclick="viewer.activateAR()">
+View in AR
+</button>
 
 <div class="menu">
 
@@ -120,9 +118,8 @@ Tap pastry name to see description
 <script>
 
 let current=0
-
-let startX = 0
-let endX = 0
+let startX=0
+let endX=0
 
 const models=[
 "cheese6.glb",
@@ -152,38 +149,28 @@ const viewer=document.getElementById("viewer")
 
 function nextItem(){
 
-viewer.style.transform = "translateX(-60px)";
+viewer.style.transform="translateX(-60px)"
 
 setTimeout(()=>{
 current=(current+1)%models.length
-
 viewer.src=models[current]
-
 document.getElementById("name").innerText=names[current]
-
 document.getElementById("desc").innerText=descriptions[current]
-
 viewer.style.transform="translateX(0)"
-
 },200)
 
 }
 
 function prevItem(){
 
-viewer.style.transform = "translateX(60px)";
+viewer.style.transform="translateX(60px)"
 
 setTimeout(()=>{
 current=(current-1+models.length)%models.length
-
 viewer.src=models[current]
-
 document.getElementById("name").innerText=names[current]
-
 document.getElementById("desc").innerText=descriptions[current]
-
 viewer.style.transform="translateX(0)"
-
 },200)
 
 }
@@ -191,26 +178,23 @@ viewer.style.transform="translateX(0)"
 document.getElementById("next").onclick=nextItem
 document.getElementById("prev").onclick=prevItem
 
+document.getElementById("name").onclick=()=>{
 let d=document.getElementById("desc")
-
 d.style.display=d.style.display==="none"?"block":"none"
-
 }
 
-const viewer = document.getElementById("viewer")
-
 viewer.addEventListener("touchstart",(e)=>{
-startX = e.touches[0].clientX
+startX=e.touches[0].clientX
 })
 
 viewer.addEventListener("touchend",(e)=>{
-endX = e.changedTouches[0].clientX
+endX=e.changedTouches[0].clientX
 
-if(startX - endX > 50){
+if(startX-endX>50){
 nextItem()
 }
 
-if(endX - startX > 50){
+if(endX-startX>50){
 prevItem()
 }
 
