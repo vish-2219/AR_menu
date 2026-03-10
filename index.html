@@ -1,47 +1,48 @@
 <!DOCTYPE html>
 <html>
+
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<script src="https://aframe.io/releases/1.4.1/aframe.min.js"></script>
+<script type="module"
+src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
 
 <style>
 
 body{
 margin:0;
-overflow:hidden;
 font-family:Arial;
+background:white;
 }
 
 .logo{
 position:absolute;
-top:10px;
-right:10px;
+top:15px;
+right:15px;
 width:90px;
 z-index:10;
 }
 
 .menu{
 position:absolute;
-bottom:30px;
+bottom:25px;
 left:50%;
 transform:translateX(-50%);
-color:white;
-font-size:22px;
-z-index:10;
 background:rgba(0,0,0,0.6);
-padding:10px 20px;
-border-radius:8px;
+color:white;
+padding:12px 20px;
+border-radius:10px;
+font-size:20px;
+z-index:10;
 text-align:center;
 }
 
 button{
-font-size:24px;
+font-size:22px;
 background:black;
 color:white;
 border:none;
-padding:5px 10px;
+padding:6px 12px;
 cursor:pointer;
 }
 
@@ -52,16 +53,32 @@ color:black;
 padding:10px;
 margin-top:8px;
 border-radius:6px;
-font-size:16px;
+}
+
+model-viewer{
+width:100%;
+height:85vh;
 }
 
 </style>
-
 </head>
 
 <body>
 
 <img class="logo" src="Screenshot (345).png">
+
+<model-viewer
+id="viewer"
+src="cheese6.glb"
+ar
+ar-modes="scene-viewer webxr quick-look"
+ar-placement="floor"
+camera-controls
+shadow-intensity="1"
+exposure="1"
+scale="0.4 0.4 0.4">
+</model-viewer>
+
 <div class="menu">
 
 <button id="prev"><</button>
@@ -70,46 +87,23 @@ font-size:16px;
 
 <button id="next">></button>
 
-<br>
-
 <div id="desc">
 Tap pastry name to see description
 </div>
 
 </div>
 
-<a-scene embedded>
-
-<a-assets>
-
-<a-asset-item id="m1" src="cheese6.glb"></a-asset-item>
-<a-asset-item id="m2" src="chocom.glb"></a-asset-item>
-<a-asset-item id="m3" src="redvelvet2mb.glb"></a-asset-item>
-<a-asset-item id="m4" src="donut.glb"></a-asset-item>
-<a-asset-item id="m5" src="cdonut.glb"></a-asset-item>
-
-</a-assets>
-
-<a-entity light="type:ambient; intensity:1"></a-entity>
-<a-entity light="type:directional; intensity:1" position="1 1 1"></a-entity>
-
-<a-camera position="0 1.6 0"></a-camera>
-
-<a-gltf-model
-id="cake"
-src="#m1"
-position="0 1.5 -4"
-scale="1.2 1.2 1.2"
-rotation="0 45 0">
-</a-gltf-model>
-
-</a-scene>
-
 <script>
 
 let current=0
 
-const models=["#m1","#m2","#m3","#m4","#m5"]
+const models=[
+"cheese6.glb",
+"chocom.glb",
+"redvelvet2mb.glb",
+"donut.glb",
+"cdonut.glb"
+]
 
 const names=[
 "Cheesecake",
@@ -127,13 +121,13 @@ const descriptions=[
 "Cream filled donut"
 ]
 
-const cake=document.querySelector("#cake")
+const viewer=document.getElementById("viewer")
 
 document.getElementById("next").onclick=()=>{
 
 current=(current+1)%models.length
 
-cake.setAttribute("src",models[current])
+viewer.src=models[current]
 
 document.getElementById("name").innerText=names[current]
 
@@ -145,7 +139,7 @@ document.getElementById("prev").onclick=()=>{
 
 current=(current-1+models.length)%models.length
 
-cake.setAttribute("src",models[current])
+viewer.src=models[current]
 
 document.getElementById("name").innerText=names[current]
 
