@@ -33,6 +33,7 @@ z-index:10;
 background:rgba(0,0,0,0.6);
 padding:10px 20px;
 border-radius:8px;
+text-align:center;
 }
 
 button{
@@ -49,7 +50,7 @@ display:none;
 background:white;
 color:black;
 padding:12px;
-margin-top:8px;
+margin-top:10px;
 width:220px;
 border-radius:6px;
 font-size:16px;
@@ -61,18 +62,18 @@ font-size:16px;
 
 <body>
 
-<img class="logo" src="white donut.png">
+<img class="logo" src="Screenshot (345).png">
 
 <div class="menu">
 
 <button id="prev"><</button>
 
 <span id="name">Cheesecake</span>
-<div id="desc">Tap pastry name to see description</div>
+
 <button id="next">></button>
 
 <div id="desc">
-Creamy cheesecake pastry
+Tap pastry name to see description
 </div>
 
 </div>
@@ -97,8 +98,8 @@ Creamy cheesecake pastry
 <a-gltf-model
 id="cake"
 src="#m1"
-position="0 1.2 -2"
-scale="0.6 0.6 0.6"
+position="0 1.5 -4"
+scale="1.2 1.2 1.2"
 rotation="0 45 0">
 </a-gltf-model>
 
@@ -118,7 +119,7 @@ const names=[
 "Cream Donut"
 ]
 
-const desc=[
+const descriptions=[
 "Creamy cheesecake pastry",
 "Rich chocolate pastry",
 "Classic red velvet pastry",
@@ -136,7 +137,7 @@ cake.setAttribute("src",models[current])
 
 document.getElementById("name").innerText=names[current]
 
-document.getElementById("desc").innerText=desc[current]
+document.getElementById("desc").innerText=descriptions[current]
 
 }
 
@@ -148,7 +149,7 @@ cake.setAttribute("src",models[current])
 
 document.getElementById("name").innerText=names[current]
 
-document.getElementById("desc").innerText=desc[current]
+document.getElementById("desc").innerText=descriptions[current]
 
 }
 
