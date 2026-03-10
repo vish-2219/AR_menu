@@ -16,9 +16,7 @@ background:#14213D;
 overflow:hidden;
 color:white;
 }
-model-viewer::part(default-ar-button){
-display:none;
-}
+
 
 /* 3D viewer */
 
@@ -36,33 +34,6 @@ top:15px;
 right:15px;
 width:65px;
 z-index:10;
-}
-
-/* AR button */
-
-.arbutton{
-position:absolute;
-bottom:130px;
-left:60px;
-
-background:#FCA311;
-color:black;
-
-padding:12px 24px;
-font-size:16px;
-
-border:none;
-border-radius:30px;
-
-cursor:pointer;
-z-index:10;
-
-white-space:nowrap;
-display:flex;
-align-items:center;
-justify-content:center;
-
-box-shadow:0 6px 16px rgba(0,0,0,0.25);
 }
 
   
@@ -132,9 +103,6 @@ shadow-intensity="1"
 environment-image="neutral">
 </model-viewer>
 
-<button class="arbutton" onclick="viewer.activateAR()">
-View in AR
-</button>
 
 <div class="menu">
 
